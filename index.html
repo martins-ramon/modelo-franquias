@@ -1,0 +1,1152 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Modelo de Franquias · Foundation LYNN — Visão Executiva</title>
+<style>
+  :root{
+    --bg:#060c13;
+    --bg2:#0a1420;
+    --card:#0e1b2a;
+    --card2:#122238;
+    --line:rgba(8,151,233,.18);
+    --line-soft:rgba(138,163,184,.12);
+    --accent:#0897e9;
+    --accent2:#36c3ff;
+    --text:#e9f2f9;
+    --muted:#8aa3b8;
+    --green:#2dd4a7;
+    --amber:#f5b73d;
+    --red:#ff6b7a;
+    --purple:#b48cff;
+    --radius:14px;
+    --shadow:0 20px 60px rgba(0,0,0,.45);
+    --font:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue",Arial,sans-serif;
+  }
+  *{margin:0;padding:0;box-sizing:border-box}
+  html,body{height:100%}
+  body{
+    font-family:var(--font);
+    background:var(--bg);
+    color:var(--text);
+    overflow:hidden;
+    -webkit-font-smoothing:antialiased;
+  }
+  body::before{
+    content:"";position:fixed;inset:0;pointer-events:none;z-index:0;
+    background:
+      radial-gradient(900px 500px at 85% -10%, rgba(8,151,233,.14), transparent 60%),
+      radial-gradient(700px 500px at -10% 110%, rgba(8,151,233,.08), transparent 55%);
+  }
+
+  /* ===== Deck ===== */
+  #deck{position:fixed;inset:0;z-index:1}
+  .slide{
+    position:absolute;inset:0;
+    display:flex;align-items:center;justify-content:center;
+    padding:56px 72px 96px;
+    opacity:0;visibility:hidden;
+    transform:translateX(60px);
+    transition:opacity .55s ease, transform .55s cubic-bezier(.22,.8,.3,1), visibility .55s;
+  }
+  .slide.active{opacity:1;visibility:visible;transform:translateX(0)}
+  .slide.prev{transform:translateX(-60px)}
+  .slide-inner{width:100%;max-width:1180px;max-height:100%;overflow-y:auto;padding:4px}
+  .slide-inner::-webkit-scrollbar{width:6px}
+  .slide-inner::-webkit-scrollbar-thumb{background:var(--line);border-radius:3px}
+
+  /* reveal animation */
+  .reveal{opacity:0;transform:translateY(22px)}
+  .slide.active .reveal{animation:fadeUp .7s cubic-bezier(.22,.8,.3,1) both}
+  .slide.active .reveal:nth-of-type(1),.slide.active [data-d="1"]{animation-delay:.08s}
+  .slide.active [data-d="2"]{animation-delay:.18s}
+  .slide.active [data-d="3"]{animation-delay:.28s}
+  .slide.active [data-d="4"]{animation-delay:.38s}
+  .slide.active [data-d="5"]{animation-delay:.48s}
+  .slide.active [data-d="6"]{animation-delay:.58s}
+  .slide.active [data-d="7"]{animation-delay:.68s}
+  @keyframes fadeUp{from{opacity:0;transform:translateY(22px)}to{opacity:1;transform:translateY(0)}}
+
+  .kicker{
+    display:inline-flex;align-items:center;gap:8px;
+    font-size:12px;font-weight:700;letter-spacing:.16em;text-transform:uppercase;
+    color:var(--accent2);margin-bottom:18px;
+  }
+  .kicker::before{content:"";width:26px;height:2px;background:linear-gradient(90deg,var(--accent),var(--accent2));border-radius:2px}
+  h1{font-size:52px;line-height:1.08;font-weight:800;letter-spacing:-.02em}
+  h2{font-size:36px;line-height:1.15;font-weight:800;letter-spacing:-.02em;margin-bottom:10px}
+  .subtitle{font-size:17px;color:var(--muted);line-height:1.6;max-width:760px}
+  .grad{background:linear-gradient(92deg,var(--accent2),var(--accent) 60%,#5bd0ff);-webkit-background-clip:text;background-clip:text;color:transparent}
+
+  .cards{display:grid;gap:16px;margin-top:28px}
+  .cards.c2{grid-template-columns:1fr 1fr}
+  .cards.c3{grid-template-columns:repeat(3,1fr)}
+  .card{
+    background:linear-gradient(180deg,var(--card),rgba(14,27,42,.6));
+    border:1px solid var(--line);border-radius:var(--radius);
+    padding:22px 22px 20px;position:relative;overflow:hidden;
+  }
+  .card::before{content:"";position:absolute;top:0;left:0;right:0;height:2px;background:linear-gradient(90deg,var(--accent),transparent 70%);opacity:.7}
+  .card h3{font-size:16px;font-weight:700;margin-bottom:8px;display:flex;align-items:center;gap:10px}
+  .card p{font-size:14px;color:var(--muted);line-height:1.6}
+  .ic{width:34px;height:34px;border-radius:9px;display:inline-flex;align-items:center;justify-content:center;font-size:16px;
+      background:rgba(8,151,233,.12);border:1px solid var(--line);flex:none}
+
+  ul.clean{list-style:none;display:grid;gap:11px;margin-top:14px}
+  ul.clean li{display:flex;gap:11px;align-items:flex-start;font-size:14.5px;line-height:1.55;color:var(--text)}
+  ul.clean li .b{flex:none;margin-top:6px;width:7px;height:7px;border-radius:50%;background:var(--accent2);box-shadow:0 0 8px rgba(54,195,255,.6)}
+  ul.clean li .ok{flex:none;color:var(--green);font-weight:800;margin-top:0}
+  ul.clean li .no{flex:none;color:var(--red);font-weight:800;margin-top:0}
+  ul.clean small{display:block;color:var(--muted);font-size:12.5px;margin-top:2px}
+
+  .badge{display:inline-flex;align-items:center;gap:6px;font-size:11px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;
+    padding:4px 10px;border-radius:999px;border:1px solid var(--line);color:var(--accent2);background:rgba(8,151,233,.08)}
+  .badge.warn{color:var(--amber);border-color:rgba(245,183,61,.35);background:rgba(245,183,61,.08)}
+  .badge.ok{color:var(--green);border-color:rgba(45,212,167,.35);background:rgba(45,212,167,.08)}
+
+  /* ===== Capa ===== */
+  .cover{text-align:left}
+  .cover .logo-row{display:flex;align-items:center;gap:14px;margin-bottom:40px}
+  .cover .logo-mark{width:44px;height:44px;border-radius:12px;background:linear-gradient(135deg,var(--accent),#065f94);
+    display:flex;align-items:center;justify-content:center;font-weight:900;font-size:19px;color:#fff;box-shadow:0 8px 24px rgba(8,151,233,.35)}
+  .cover .logo-txt{font-size:13px;font-weight:700;letter-spacing:.22em;text-transform:uppercase;color:var(--muted)}
+  .cover h1{font-size:58px;max-width:900px}
+  .cover .meta{display:flex;gap:28px;margin-top:44px;flex-wrap:wrap}
+  .cover .meta div{border-left:2px solid var(--line);padding-left:16px}
+  .cover .meta b{display:block;font-size:14px;color:var(--text)}
+  .cover .meta span{font-size:12.5px;color:var(--muted)}
+
+  /* ===== Timeline ===== */
+  .timeline{position:relative;margin-top:44px;display:grid;grid-template-columns:repeat(3,1fr);gap:20px}
+  .timeline::before{content:"";position:absolute;top:23px;left:4%;right:4%;height:2px;
+    background:linear-gradient(90deg,var(--accent) 0%,rgba(8,151,233,.5) 55%,rgba(138,163,184,.25) 100%)}
+  .tl-item{position:relative;padding-top:58px}
+  .tl-item .dot{position:absolute;top:12px;left:0;width:46px;height:46px;border-radius:50%;
+    background:var(--bg2);border:2px solid var(--accent);display:flex;align-items:center;justify-content:center;
+    font-weight:800;font-size:13px;color:var(--accent2);box-shadow:0 0 0 6px rgba(8,151,233,.08)}
+  .tl-item.dim .dot{border-color:rgba(138,163,184,.4);color:var(--muted);box-shadow:none}
+  .tl-item .when{font-size:11.5px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--accent2);margin-bottom:6px}
+  .tl-item.dim .when{color:var(--muted)}
+  .tl-item h3{font-size:19px;font-weight:800;margin-bottom:10px}
+  .tl-item p{font-size:13.5px;color:var(--muted);line-height:1.6}
+  .tl-card{background:var(--card);border:1px solid var(--line);border-radius:var(--radius);padding:18px}
+
+  /* ===== Matrix table ===== */
+  table.matrix{width:100%;border-collapse:separate;border-spacing:0;margin-top:22px;font-size:13.5px}
+  table.matrix th,table.matrix td{padding:11px 14px;text-align:center;border-bottom:1px solid var(--line-soft)}
+  table.matrix th{font-size:12px;letter-spacing:.1em;text-transform:uppercase;color:var(--muted);font-weight:700}
+  table.matrix th.phase{color:var(--accent2)}
+  table.matrix td:first-child,table.matrix th:first-child{text-align:left}
+  table.matrix td:first-child{color:var(--text);font-weight:600;font-size:13.5px}
+  table.matrix td:first-child small{display:block;color:var(--muted);font-weight:400;font-size:11.5px;margin-top:2px}
+  table.matrix tr:hover td{background:rgba(8,151,233,.05)}
+  table.matrix .col-hl{background:rgba(8,151,233,.06)}
+  .st{display:inline-flex;align-items:center;justify-content:center;width:28px;height:28px;border-radius:8px;font-size:13px;font-weight:800}
+  .st.yes{color:var(--green);background:rgba(45,212,167,.12);border:1px solid rgba(45,212,167,.3)}
+  .st.no{color:var(--red);background:rgba(255,107,122,.08);border:1px solid rgba(255,107,122,.22)}
+  .st.part{color:var(--amber);background:rgba(245,183,61,.1);border:1px solid rgba(245,183,61,.3)}
+  .st.def{color:var(--amber);background:transparent;border:1px dashed rgba(245,183,61,.5)}
+  .legend{display:flex;gap:22px;margin-top:16px;flex-wrap:wrap}
+  .legend span{display:inline-flex;align-items:center;gap:8px;font-size:12.5px;color:var(--muted)}
+
+  /* ===== Pilotos split ===== */
+  .split{display:grid;grid-template-columns:1fr 1fr;gap:18px;margin-top:26px}
+  .panel-ok,.panel-no{border-radius:var(--radius);padding:22px;border:1px solid}
+  .panel-ok{background:rgba(45,212,167,.05);border-color:rgba(45,212,167,.25)}
+  .panel-no{background:rgba(255,107,122,.04);border-color:rgba(255,107,122,.2)}
+  .panel-ok h3{color:var(--green)} .panel-no h3{color:var(--red)}
+  .panel-ok h3,.panel-no h3{font-size:15px;font-weight:800;letter-spacing:.04em;text-transform:uppercase;margin-bottom:14px;display:flex;align-items:center;gap:8px}
+  .banner{
+    margin-top:20px;padding:18px 22px;border-radius:var(--radius);
+    background:linear-gradient(90deg,rgba(8,151,233,.14),rgba(8,151,233,.04));
+    border:1px solid var(--line);display:flex;gap:14px;align-items:center;
+  }
+  .banner .bi{font-size:22px}
+  .banner p{font-size:14.5px;line-height:1.55}
+  .banner b{color:var(--accent2)}
+
+  /* ===== Monetização flow ===== */
+  .flow{display:grid;grid-template-columns:1fr auto 1fr auto 1fr;gap:12px;align-items:stretch;margin-top:30px}
+  .flow .arrow{display:flex;align-items:center;color:var(--accent);font-size:22px}
+  .flow .stage{background:var(--card);border:1px solid var(--line);border-radius:var(--radius);padding:20px}
+  .flow .stage .tag{font-size:11px;font-weight:800;letter-spacing:.12em;text-transform:uppercase;color:var(--accent2);margin-bottom:8px}
+  .flow .stage h3{font-size:16.5px;margin-bottom:10px}
+  .flow .stage p{font-size:13px;color:var(--muted);line-height:1.6}
+
+  /* ===== Pendências ===== */
+  .pend{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-top:24px}
+  .pend .card{padding:18px 20px}
+  .pend .owner{display:inline-block;margin-top:10px;font-size:11.5px;font-weight:700;color:var(--muted);
+    border:1px solid var(--line-soft);border-radius:999px;padding:3px 10px}
+
+  /* ===== Nav ===== */
+  #nav{
+    position:fixed;left:0;right:0;bottom:0;z-index:50;
+    display:flex;align-items:center;justify-content:space-between;
+    padding:14px 28px;
+    background:linear-gradient(0deg,rgba(6,12,19,.92),rgba(6,12,19,0));
+  }
+  .nav-btns{display:flex;gap:8px}
+  .nav-btn{
+    width:40px;height:40px;border-radius:10px;border:1px solid var(--line);
+    background:rgba(14,27,42,.8);color:var(--text);font-size:16px;cursor:pointer;
+    transition:all .2s;backdrop-filter:blur(6px);
+  }
+  .nav-btn:hover{background:rgba(8,151,233,.18);border-color:var(--accent)}
+  #dots{display:flex;gap:10px;align-items:center}
+  .dot-w{position:relative;cursor:pointer;padding:6px 2px}
+  .dot-w .d{width:9px;height:9px;border-radius:50%;background:rgba(138,163,184,.35);transition:all .25s;display:block}
+  .dot-w.on .d{background:var(--accent2);box-shadow:0 0 10px rgba(54,195,255,.7);transform:scale(1.25)}
+  .dot-w .cnt{
+    position:absolute;top:-9px;right:-9px;min-width:16px;height:16px;border-radius:8px;
+    background:var(--amber);color:#1a1205;font-size:10px;font-weight:800;
+    display:flex;align-items:center;justify-content:center;padding:0 4px;
+  }
+  #counter{font-size:12.5px;color:var(--muted);font-variant-numeric:tabular-nums;min-width:52px;text-align:right}
+  #brand-top{position:fixed;top:18px;right:26px;z-index:50;font-size:11px;font-weight:700;letter-spacing:.2em;
+    text-transform:uppercase;color:rgba(138,163,184,.55)}
+  #mode-pill{position:fixed;top:16px;left:24px;z-index:50;font-size:11px;font-weight:700;
+    padding:5px 12px;border-radius:999px;border:1px solid var(--line-soft);color:var(--muted);
+    background:rgba(14,27,42,.7);backdrop-filter:blur(6px);display:flex;align-items:center;gap:7px}
+  #mode-pill .led{width:7px;height:7px;border-radius:50%;background:var(--muted)}
+  #mode-pill.online .led{background:var(--green);box-shadow:0 0 8px rgba(45,212,167,.8)}
+  #mode-pill.local .led{background:var(--amber)}
+
+  /* ===== Collaboration ===== */
+  #fab{
+    position:fixed;right:26px;bottom:76px;z-index:60;
+    display:flex;align-items:center;gap:9px;
+    padding:12px 18px;border-radius:999px;border:1px solid var(--line);
+    background:linear-gradient(135deg,rgba(8,151,233,.9),rgba(6,95,148,.9));
+    color:#fff;font-size:13.5px;font-weight:700;cursor:pointer;
+    box-shadow:0 10px 30px rgba(8,151,233,.35);transition:transform .2s;
+    font-family:var(--font);
+  }
+  #fab:hover{transform:translateY(-2px)}
+  #fab .fcnt{background:#fff;color:var(--accent);border-radius:999px;min-width:20px;height:20px;
+    display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:800;padding:0 6px}
+
+  #cpanel{
+    position:fixed;top:0;right:0;bottom:0;width:430px;max-width:94vw;z-index:80;
+    background:rgba(10,20,32,.98);border-left:1px solid var(--line);
+    transform:translateX(105%);transition:transform .38s cubic-bezier(.22,.8,.3,1);
+    display:flex;flex-direction:column;backdrop-filter:blur(14px);
+    box-shadow:-20px 0 60px rgba(0,0,0,.5);
+  }
+  #cpanel.open{transform:translateX(0)}
+  #cpanel header{padding:20px 22px 14px;border-bottom:1px solid var(--line-soft)}
+  #cpanel header .row{display:flex;align-items:center;justify-content:space-between}
+  #cpanel header h3{font-size:16px;font-weight:800}
+  #cpanel header .sl{font-size:12px;color:var(--muted);margin-top:4px}
+  .xbtn{background:none;border:none;color:var(--muted);font-size:20px;cursor:pointer;padding:4px 8px;font-family:var(--font)}
+  .xbtn:hover{color:var(--text)}
+  #clist{flex:1;overflow-y:auto;padding:16px 22px;display:flex;flex-direction:column;gap:12px}
+  #clist::-webkit-scrollbar{width:6px}
+  #clist::-webkit-scrollbar-thumb{background:var(--line);border-radius:3px}
+  .cmt{background:var(--card);border:1px solid var(--line-soft);border-radius:12px;padding:14px 15px}
+  .cmt.resolved{opacity:.55}
+  .cmt .top{display:flex;align-items:center;gap:8px;margin-bottom:7px;flex-wrap:wrap}
+  .cmt .who{font-size:13px;font-weight:700}
+  .cmt .when{font-size:11px;color:var(--muted)}
+  .cmt .body{font-size:13.5px;line-height:1.55;color:var(--text);white-space:pre-wrap;word-break:break-word}
+  .cmt .acts{display:flex;gap:14px;margin-top:10px}
+  .cmt .acts button{background:none;border:none;color:var(--muted);font-size:11.5px;font-weight:700;cursor:pointer;padding:0;font-family:var(--font)}
+  .cmt .acts button:hover{color:var(--accent2)}
+  .cmt .replies{margin-top:10px;padding-left:12px;border-left:2px solid var(--line-soft);display:flex;flex-direction:column;gap:8px}
+  .cat{font-size:10px;font-weight:800;letter-spacing:.08em;text-transform:uppercase;padding:2.5px 8px;border-radius:999px}
+  .cat.comentario{color:var(--accent2);background:rgba(8,151,233,.12)}
+  .cat.pergunta{color:var(--purple);background:rgba(180,140,255,.12)}
+  .cat.ajuste{color:var(--amber);background:rgba(245,183,61,.12)}
+  .cat.gustavo{color:#ffd28a;background:rgba(255,160,60,.16);border:1px solid rgba(255,160,60,.35)}
+  .cat.resolvido{color:var(--green);background:rgba(45,212,167,.12)}
+  #cform{padding:16px 22px 20px;border-top:1px solid var(--line-soft);display:flex;flex-direction:column;gap:10px}
+  #cform .frow{display:flex;gap:8px}
+  select,textarea,input[type=text]{
+    width:100%;background:var(--card2);border:1px solid var(--line-soft);border-radius:10px;
+    color:var(--text);font-family:var(--font);font-size:13.5px;padding:10px 12px;outline:none;
+  }
+  select:focus,textarea:focus,input[type=text]:focus{border-color:var(--accent)}
+  textarea{resize:vertical;min-height:70px}
+  .btn{
+    border:none;border-radius:10px;padding:11px 18px;font-size:13.5px;font-weight:700;cursor:pointer;
+    background:linear-gradient(135deg,var(--accent),#0673b3);color:#fff;font-family:var(--font);transition:filter .2s;
+  }
+  .btn:hover{filter:brightness(1.15)}
+  .btn.ghost{background:transparent;border:1px solid var(--line);color:var(--accent2)}
+  .btn.sm{padding:8px 14px;font-size:12.5px}
+
+  /* overlay modals */
+  .overlay{position:fixed;inset:0;z-index:90;background:rgba(3,7,12,.7);backdrop-filter:blur(6px);
+    display:none;align-items:center;justify-content:center;padding:24px}
+  .overlay.open{display:flex}
+  .modal{background:var(--bg2);border:1px solid var(--line);border-radius:18px;box-shadow:var(--shadow);
+    width:100%;max-width:560px;padding:26px}
+  .modal h3{font-size:18px;font-weight:800;margin-bottom:6px}
+  .modal .hint{font-size:12.5px;color:var(--muted);margin-bottom:16px}
+  .modal.wide{max-width:860px;max-height:86vh;display:flex;flex-direction:column}
+  #all-list{flex:1;overflow-y:auto;margin-top:14px;display:flex;flex-direction:column;gap:10px;padding-right:6px}
+  #all-list::-webkit-scrollbar{width:6px}
+  #all-list::-webkit-scrollbar-thumb{background:var(--line);border-radius:3px}
+  .slide-tag{font-size:10.5px;font-weight:800;color:var(--muted);letter-spacing:.06em;text-transform:uppercase;
+    border:1px solid var(--line-soft);padding:2.5px 8px;border-radius:999px}
+  .filters{display:flex;gap:8px;flex-wrap:wrap;margin-top:12px}
+  .chip{font-size:12px;font-weight:700;padding:6px 13px;border-radius:999px;border:1px solid var(--line-soft);
+    background:transparent;color:var(--muted);cursor:pointer;font-family:var(--font);transition:all .18s}
+  .chip.on{color:#fff;background:rgba(8,151,233,.25);border-color:var(--accent)}
+  .gq-badge{display:inline-flex;align-items:center;gap:8px;color:#ffd28a;font-size:12px;font-weight:800;
+    letter-spacing:.1em;text-transform:uppercase;margin-bottom:10px}
+
+  .toast{position:fixed;bottom:130px;left:50%;transform:translateX(-50%) translateY(20px);z-index:120;
+    background:var(--card2);border:1px solid var(--line);color:var(--text);font-size:13px;font-weight:600;
+    padding:11px 20px;border-radius:12px;opacity:0;transition:all .3s;pointer-events:none;box-shadow:var(--shadow)}
+  .toast.show{opacity:1;transform:translateX(-50%) translateY(0)}
+
+  .keys-hint{position:fixed;bottom:18px;left:28px;z-index:49;font-size:11px;color:rgba(138,163,184,.5)}
+  .keys-hint kbd{border:1px solid var(--line-soft);border-radius:4px;padding:1px 5px;font-family:var(--font);font-size:10px}
+
+  @media (max-width:900px){
+    .slide{padding:40px 22px 110px}
+    h1{font-size:34px}.cover h1{font-size:36px}h2{font-size:26px}
+    .cards.c2,.cards.c3,.split,.pend{grid-template-columns:1fr}
+    .timeline{grid-template-columns:1fr}
+    .timeline::before{display:none}
+    .flow{grid-template-columns:1fr}
+    .flow .arrow{transform:rotate(90deg);justify-content:center}
+    .keys-hint{display:none}
+    table.matrix{font-size:11.5px}
+    table.matrix th,table.matrix td{padding:8px 6px}
+  }
+</style>
+</head>
+<body>
+
+<div id="brand-top">TOTVS · Starship</div>
+<div id="mode-pill"><span class="led"></span><span id="mode-txt">conectando…</span></div>
+
+<div id="deck">
+
+  <!-- ============ SLIDE 1 · CAPA ============ -->
+  <section class="slide" data-title="Capa">
+    <div class="slide-inner cover">
+      <div class="logo-row reveal" data-d="1">
+        <div class="logo-mark">T</div>
+        <div class="logo-txt">TOTVS · Projeto Starship</div>
+      </div>
+      <div class="kicker reveal" data-d="2">Visão Executiva</div>
+      <h1 class="reveal" data-d="3">Modelo de Franquias<br><span class="grad">Acesso ao Foundation LYNN</span></h1>
+      <p class="subtitle reveal" data-d="4" style="margin-top:22px">
+        Como as franquias terão acesso à construção de agentes no LYNN ao longo do tempo,
+        a partir do <b style="color:var(--text)">Universo TOTVS · Outubro/2026</b>. Em fases, com clareza
+        sobre o que estará disponível em cada momento.
+      </p>
+    </div>
+  </section>
+
+  <!-- ============ SLIDE 2 · CONTEXTO ============ -->
+  <section class="slide" data-title="Contexto e Racional">
+    <div class="slide-inner">
+      <div class="kicker reveal" data-d="1">Por que agora</div>
+      <h2 class="reveal" data-d="2">Contexto &amp; Racional</h2>
+      <p class="subtitle reveal" data-d="3">Compromisso assumido com os franqueados na Confrat: liberar a construção de agentes no LYNN.
+      O endereçamento acontece no Universo TOTVS, em outubro/2026.</p>
+      <div class="cards c3">
+        <div class="card reveal" data-d="4">
+          <h3><span class="ic">🛡️</span>Blindar a base</h3>
+          <p>Franquias já constroem agentes com ferramentas externas (N8N, Make e afins).
+          Oferecer o caminho corporativo LYNN evita dispersão do ecossistema e protege a relação com a base de clientes.</p>
+        </div>
+        <div class="card reveal" data-d="5">
+          <h3><span class="ic">⚡</span>Pressão competitiva</h3>
+          <p>IAs verticais avançam rápido sobre nichos (ex.: Harvey no jurídico). Clientes e franquias
+          já pedem integração. A demanda é real e cresce em vários segmentos.</p>
+        </div>
+        <div class="card reveal" data-d="6">
+          <h3><span class="ic">💰</span>Nova avenida de receita</h3>
+          <p>Franquias construindo agentes geram consumo de TCoin (modelo de repasse) e serviços (geralmente one-shot para a franquia).
+          </p>
+        </div>
+      </div>
+      <div class="banner reveal" data-d="7">
+        <span class="bi">🎯</span>
+        <p><b>Mensagem central:</b> as franquias começam a operar no LYNN já a partir do Universo,
+        <b>em paralelo aos pilotos</b>, com escopo claro e limites comunicados de forma explícita.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ SLIDE 3 · PRINCÍPIOS ============ -->
+  <section class="slide" data-title="Princípios do Modelo">
+    <div class="slide-inner">
+      <div class="kicker reveal" data-d="1">O que já está deliberado</div>
+      <h2 class="reveal" data-d="2">Princípios do Modelo</h2>
+      <div class="cards c2" style="margin-top:24px">
+        <div class="card reveal" data-d="3">
+          <h3><span class="ic">🔒</span>Propriedade intelectual TOTVS protegida</h3>
+          <ul class="clean">
+            <li><span class="b"></span><span>Agentes padrão TOTVS são <b>fechados</b>: manifestos, prompts e documentação interna <b>não serão publicados</b>.</span></li>
+            <li><span class="b"></span><span>Franquia <b>não customiza</b> agentes padrão nem modifica seus MCPs.</span></li>
+          </ul>
+        </div>
+        <div class="card reveal" data-d="4">
+          <h3><span class="ic">🧩</span>Franquia constrói o novo</h3>
+          <ul class="clean">
+            <li><span class="b"></span><span>Criação de <b>agentes novos no LYNN Builder</b>, sob demanda de clientes.</span></li>
+            <li><span class="b"></span><span>Acesso ao <b>catálogo de tools padrão</b> (XXX tools) via MCP Server.<small>MCP Server é único; cada MCP é vinculado a um agente e permissionado.</small></span></li>
+          </ul>
+        </div>
+        <div class="card reveal" data-d="5">
+          <h3><span class="ic">📄</span>Mesmo conceito da customização atual</h3>
+          <ul class="clean">
+            <li><span class="b"></span><span>A propriedade intelectual do que a franquia constrói para o cliente segue o modelo vigente de customização (<b>propriedade do cliente</b> que pagou).</span></li>
+            <li><span class="b"></span><span>Extensões no ERP continuam pelos <b>pontos de entrada</b>, sem acesso ao código-fonte padrão.</span></li>
+          </ul>
+        </div>
+        <div class="card reveal" data-d="6">
+          <h3><span class="ic">🎯</span>Distribuição controlada</h3>
+          <ul class="clean">
+            <li><span class="b"></span><span>Liberação do agente <b>cliente a cliente, via TCode</b>. Ativação pelo cliente na Agent Store (espaço de customizados).</span></li>
+            <li><span class="b"></span><span><b>Sem broadcast</b> na Store neste primeiro momento. Publicação ampla é etapa futura (T2).</span></li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ SLIDE 4 · FASES ============ -->
+  <section class="slide" data-title="Visão de Fases">
+    <div class="slide-inner">
+      <div class="kicker reveal" data-d="1">Entrega em fases</div>
+      <h2 class="reveal" data-d="2">Como o acesso evolui no tempo</h2>
+      <p class="subtitle reveal" data-d="3">Três movimentos, começando no Universo TOTVS. Franquias trabalham
+      <b style="color:var(--text)">em paralelo aos pilotos</b>, via patch 25.10+ aplicado sob demanda. Não será realizada atualização em bloco do parque.</p>
+      <div class="timeline">
+        <div class="tl-item reveal" data-d="4">
+          <div class="dot">T0</div>
+          <div class="when">Universo TOTVS · Out/2026</div>
+          <div class="tl-card">
+            <h3>Abertura do LYNN</h3>
+            <p>Franquias constroem <b>agentes novos</b> com <b>tools padrão</b>, entregam a clientes específicos (TCode)
+            e monetizam por <b>serviço</b>. Modelo que já praticam hoje. Em paralelo aos pilotos TOTVS.</p>
+          </div>
+        </div>
+        <div class="tl-item reveal" data-d="5">
+          <div class="dot">T1</div>
+          <div class="when">Q1 2027</div>
+          <div class="tl-card">
+            <h3>Transição TCoin + User Tools</h3>
+            <p>Bilhetagem via <b>wallet TCoin</b> (Billing ativo a partir de jan/27), repasse de custos operante e liberação de
+            <b>tools customizadas</b> (esforço em dimensionamento).</p>
+          </div>
+        </div>
+        <div class="tl-item reveal" data-d="6">
+          <div class="dot">T2</div>
+          <div class="when">Q2 2027</div>
+          <div class="tl-card">
+            <h3>Modelo de Plataforma</h3>
+            <p>Publicação <b>ampla na Agent Store</b>, repasse de receita <b>70/30</b> (modelo App Store),
+            monetização de APIs via gateway e acesso governado à plataforma de dados.</p>
+          </div>
+        </div>
+      </div>
+      <div class="banner reveal" data-d="7">
+        <span class="bi">📌</span>
+        <p>As janelas de T1 e T2 são <b>propostas de calibragem</b>. Dependem do dimensionamento técnico
+        (user tools, repasse de custos, Billing) que o grupo está fechando.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ SLIDE 5 · QUADRO COMPARATIVO ============ -->
+  <section class="slide" data-title="Quadro Comparativo de Fases">
+    <div class="slide-inner">
+      <div class="kicker reveal" data-d="1">O que · Como · Quando</div>
+      <h2 class="reveal" data-d="2">Quadro comparativo por fase</h2>
+      <div class="reveal" data-d="3">
+      <table class="matrix">
+        <thead>
+          <tr>
+            <th>Capacidade</th>
+            <th class="phase col-hl">T0 · Universo<br>out/26</th>
+            <th class="phase">T1 · Q1/27</th>
+            <th class="phase">T2 · Q2/27</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr><td>Construção de agentes no LYNN Builder</td>
+            <td class="col-hl"><span class="st yes">✓</span></td><td><span class="st yes">✓</span></td><td><span class="st yes">✓</span></td></tr>
+          <tr><td>Uso das tools padrão <small>catálogo MCP (~15 tools)</small></td>
+            <td class="col-hl"><span class="st yes">✓</span></td><td><span class="st yes">✓</span></td><td><span class="st yes">✓</span></td></tr>
+          <tr><td>Acesso a manifestos/prompts dos agentes padrão <small>proteção de PI — nunca será liberado</small></td>
+            <td class="col-hl"><span class="st no">✕</span></td><td><span class="st no">✕</span></td><td><span class="st no">✕</span></td></tr>
+          <tr><td>Criação de tools customizadas (user tools) <small>esforço "fazer + proteger" em dimensionamento por linha</small></td>
+            <td class="col-hl"><span class="st no">✕</span></td><td><span class="st def">⚠</span></td><td><span class="st yes">✓</span></td></tr>
+          <tr><td>Entrega a cliente específico via TCode <small>ativação na Agent Store · espaço de customizados</small></td>
+            <td class="col-hl"><span class="st yes">✓</span></td><td><span class="st yes">✓</span></td><td><span class="st yes">✓</span></td></tr>
+          <tr><td>Publicação ampla na Agent Store</td>
+            <td class="col-hl"><span class="st no">✕</span></td><td><span class="st no">✕</span></td><td><span class="st yes">✓</span></td></tr>
+          <tr><td>Monetização por serviço <small>franquia cobra o cliente · modelo atual de customização</small></td>
+            <td class="col-hl"><span class="st yes">✓</span></td><td><span class="st yes">✓</span></td><td><span class="st yes">✓</span></td></tr>
+          <tr><td>Wallet TCoin · consumo bilhetado <small>Billing com repasse a partir de jan/27</small></td>
+            <td class="col-hl"><span class="st no">✕</span></td><td><span class="st yes">✓</span></td><td><span class="st yes">✓</span></td></tr>
+          <tr><td>Repasse de custos à franquia <small>mecanismo em definição · tenant é do cliente</small></td>
+            <td class="col-hl"><span class="st part">◐</span></td><td><span class="st yes">✓</span></td><td><span class="st yes">✓</span></td></tr>
+          <tr><td>Repasse de receita 70/30 <small>modelo plataforma / App Store</small></td>
+            <td class="col-hl"><span class="st no">✕</span></td><td><span class="st no">✕</span></td><td><span class="st yes">✓</span></td></tr>
+          <tr><td>Agentes com plataforma de dados <small>conceito "tenant irmã" + governança/opt-out em estudo</small></td>
+            <td class="col-hl"><span class="st no">✕</span></td><td><span class="st def">⚠</span></td><td><span class="st yes">✓</span></td></tr>
+          <tr><td>APIs externas monetizadas <small>via gateway · agentes de terceiros (ex.: Harvey, N8N)</small></td>
+            <td class="col-hl"><span class="st no">✕</span></td><td><span class="st def">⚠</span></td><td><span class="st yes">✓</span></td></tr>
+        </tbody>
+      </table>
+      </div>
+      <div class="legend reveal" data-d="4">
+        <span><span class="st yes">✓</span> Liberado</span>
+        <span><span class="st part">◐</span> Parcial / em estruturação</span>
+        <span><span class="st def">⚠</span> Em definição (dimensionamento)</span>
+        <span><span class="st no">✕</span> Não disponível</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ SLIDE 6 · PILOTOS ============ -->
+  <section class="slide" data-title="Durante os Pilotos">
+    <div class="slide-inner">
+      <div class="kicker reveal" data-d="1">Out–Dez/2026 · Expectativa calibrada</div>
+      <h2 class="reveal" data-d="2">Durante os pilotos: o que está e o que <span class="grad">não</span> está pronto</h2>
+      <p class="subtitle reveal" data-d="3">A liberação de outubro é dirigida: pilotos TOTVS rodam nos ambientes escolhidos,
+      e as franquias operam em paralelo com escopo delimitado.</p>
+      <div class="split">
+        <div class="panel-ok reveal" data-d="4">
+          <h3>✓ Disponível para as franquias</h3>
+          <ul class="clean">
+            <li><span class="ok">✓</span><span>Construção de <b>agentes novos</b> no LYNN Builder</span></li>
+            <li><span class="ok">✓</span><span><b>Tools padrão</b> via MCP Server (catálogo ~XXX)</span></li>
+            <li><span class="ok">✓</span><span>Ativação por cliente específico (<b>TCode</b>) na Agent Store</span></li>
+            <li><span class="ok">✓</span><span><b>Patch 25.10+</b> aplicado sob demanda no cliente da franquia<small>independe da atualização em bloco e do cronograma dos pilotos</small></span></li>
+            <li><span class="ok">✓</span><span>Monetização por <b>serviço</b> (one-shot, modelo atual)</span></li>
+          </ul>
+        </div>
+        <div class="panel-no reveal" data-d="5">
+          <h3>✕ Ainda não disponível</h3>
+          <ul class="clean">
+            <li><span class="no">✕</span><span><b>Bilhetagem TCoin</b><small>Billing com repasse só a partir de jan/27 — nos pilotos, o custo é absorvido pela TOTVS</small></span></li>
+            <li><span class="no">✕</span><span><b>Mecanismo de repasse de custos</b> à franquia<small>plataforma de repasse em construção; tenant pertence ao cliente</small></span></li>
+            <li><span class="no">✕</span><span><b>Tools customizadas</b> (user tools)<small>esforço de fazer + proteger em dimensionamento nas 3 linhas</small></span></li>
+            <li><span class="no">✕</span><span>Agentes com demanda à <b>plataforma de dados</b></span></li>
+            <li><span class="no">✕</span><span><b>Comissionamento / repasse de receita</b> (70/30)</span></li>
+          </ul>
+        </div>
+      </div>
+      <div class="banner reveal" data-d="6">
+        <span class="bi">📣</span>
+        <p><b>Comunicação no Universo precisa ser explícita sobre esses limites.</b>
+        Estar em paralelo aos pilotos não significa ter o modelo completo — o playbook evolui a cada fase.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ SLIDE 7 · MONETIZAÇÃO ============ -->
+  <section class="slide" data-title="Modelo de Monetização">
+    <div class="slide-inner">
+      <div class="kicker reveal" data-d="1">Direção de negócio</div>
+      <h2 class="reveal" data-d="2">Monetização: evolução em 3 estágios</h2>
+      <p class="subtitle reveal" data-d="3">Princípio permanente: <b style="color:var(--text)">todo custo de execução é repassado à franquia</b> —
+      o risco fica isolado da TOTVS. A receita evolui do serviço direto ao modelo de plataforma.</p>
+      <div class="flow reveal" data-d="4">
+        <div class="stage">
+          <div class="tag">T0 · Serviço direto</div>
+          <h3>Franquia cobra o cliente</h3>
+          <p>Serviço one-shot de construção do agente, na relação comercial atual (igual customização de software).
+          TOTVS repassa custos de infra/tokens à franquia assim que o mecanismo estiver operante.</p>
+        </div>
+        <div class="arrow">➜</div>
+        <div class="stage">
+          <div class="tag">T1 · Transição TCoin</div>
+          <h3>Consumo bilhetado</h3>
+          <p>Cliente compra pacote de TCoins; execução dos agentes consome a wallet via Billing.
+          Franquia precifica a unidade de consumo das suas tools e responde pela própria margem.</p>
+        </div>
+        <div class="arrow">➜</div>
+        <div class="stage">
+          <div class="tag">T2 · Plataforma</div>
+          <h3>Repasse 70/30</h3>
+          <p>Agentes publicados na Store para toda a base. TOTVS fatura o cliente (TCoin) e repassa a parcela da franquia (modelo App Store), conforme desenhado no BP.</p>
+        </div>
+      </div>
+      <div class="cards c2" style="margin-top:20px">
+        <div class="card reveal" data-d="5">
+          <h3><span class="ic">🧾</span>Fluxo financeiro</h3>
+          <p>TOTVS sempre fatura o cliente final (venda de TCoins). O acerto com a franquia (custos e, depois, receita)
+          ocorre em ciclo periódico, com tratamento contábil adequado entre empresas, evitando bitributação.</p>
+        </div>
+        <div class="card reveal" data-d="6">
+          <h3><span class="ic">⚖️</span>Risco na ponta certa</h3>
+          <p>Se a franquia precificar mal a unidade de consumo ou o agente consumir tokens em excesso,
+          o custo é dela. Mesma mecânica de risco dos times de produto TOTVS.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ SLIDE 8 · PONTOS EM DELIBERAÇÃO ============ -->
+  <section class="slide" data-title="Pontos em Deliberação">
+    <div class="slide-inner">
+      <div class="kicker reveal" data-d="1">Em maturação no grupo de trabalho</div>
+      <h2 class="reveal" data-d="2">Pontos em deliberação</h2>
+      <p class="subtitle reveal" data-d="3">Temas com dono definido, em análise para a próxima rodada. A maioria condiciona as janelas de T1/T2.</p>
+      <div class="pend">
+        <div class="card reveal" data-d="4">
+          <span class="badge warn">Dimensionamento</span>
+          <h3 style="margin-top:10px">User tools nas 3 linhas de produto</h3>
+          <p>Esforço de "fazer + proteger" a criação de tools customizadas (Protheus, Datasul, RM).
+          A conta precisa acompanhar a proposta quando o tema subir para Dennis.</p>
+          <span class="owner">Bruno Malafaia · times de produto</span>
+        </div>
+        <div class="card reveal" data-d="4">
+          <span class="badge warn">Billing</span>
+          <h3 style="margin-top:10px">Granularidade da bilhetagem</h3>
+          <p>Hoje o Billing não distingue tool padrão × tool de franquia. Tools precisarão se autoidentificar
+          para direcionar custo e receita corretamente (tenant + agente + tool).</p>
+          <span class="owner">Sobieski · c/ Felipe Xavier</span>
+        </div>
+        <div class="card reveal" data-d="5">
+          <span class="badge warn">Mecanismo</span>
+          <h3 style="margin-top:10px">Repasse de custos à franquia</h3>
+          <p>O tenant é do cliente — é preciso vincular agente→franquia para transferir o custo
+          (nota fiscal / tratamento contábil). Plataforma central de repasse em construção.</p>
+          <span class="owner">André Pasold · c/ Fernando Sorocaba</span>
+        </div>
+        <div class="card reveal" data-d="5">
+          <span class="badge warn">Dados</span>
+          <h3 style="margin-top:10px">Plataforma de dados &amp; governança</h3>
+          <p>Conceito de "tenant irmã" com acesso pré-aprovado por linha de negócio; opt-out de compartilhamento;
+          verificação de cobertura contratual para acesso do franqueado a dados do cliente.</p>
+          <span class="owner">Robson Poffo · Eduardo Teixeira</span>
+        </div>
+        <div class="card reveal" data-d="6">
+          <span class="badge">Mercado</span>
+          <h3 style="margin-top:10px">Temperatura da demanda</h3>
+          <p>Mapear se há demanda reprimida (franquias já com 10–15 agentes em campo) — isso pode antecipar
+          prioridades de T1/T2 e o investimento em publicação na Store.</p>
+          <span class="owner">Alinhamento c/ Fernanda Mariano</span>
+        </div>
+        <div class="card reveal" data-d="6">
+          <span class="badge">Enablement</span>
+          <h3 style="margin-top:10px">Playbook das franquias</h3>
+          <p>Manual de início-meio-fim: como construir, precificar, entregar e suportar agentes.
+          Sem o caminho claro, a liberação gera ruído — educação formal antes do lançamento amplo.</p>
+          <span class="owner">Grupo Starship</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ SLIDE 9 · PRÓXIMOS PASSOS ============ -->
+  <section class="slide" data-title="Decisões e Próximos Passos">
+    <div class="slide-inner">
+      <div class="kicker reveal" data-d="1">Encaminhamentos</div>
+      <h2 class="reveal" data-d="2">Decisões solicitadas &amp; próximos passos</h2>
+      <div class="cards c2" style="margin-top:24px">
+        <div class="card reveal" data-d="3">
+          <h3><span class="ic">✅</span>Decisões solicitadas ao Gustavo</h3>
+          <ul class="clean">
+            <li><span class="b"></span><span>Validar os <b>limites do modelo</b>: agentes padrão fechados; franquia constrói o novo com tools padrão.</span></li>
+            <li><span class="b"></span><span>Confirmar a liberação <b>em paralelo aos pilotos</b> (T0 no Universo), com as ressalvas comunicadas.</span></li>
+            <li><span class="b"></span><span>Definir se o repasse de custos é <b>1:1 ou com margem</b>.</span></li>
+            <li><span class="b"></span><span>Calibrar as <b>janelas de T1 (Q1/27) e T2 (H1/27)</b> frente à pressão do ecossistema.</span></li>
+          </ul>
+        </div>
+        <div class="card reveal" data-d="4">
+          <h3><span class="ic">🛠️</span>Próximos passos do grupo</h3>
+          <ul class="clean">
+            <li><span class="b"></span><span>Dimensionar <b>user tools</b> nas 3 linhas (fazer + proteger) — Malafaia.</span></li>
+            <li><span class="b"></span><span>Validar <b>granularidade de bilhetagem</b> e repasse com Billing — Sobieski / Felipe Xavier / Sorocaba.</span></li>
+            <li><span class="b"></span><span>Pauta técnica de <b>plataforma de dados</b> (tenant irmã, opt-out, contrato) — Poffo / Teixeira.</span></li>
+            <li><span class="b"></span><span>Sondar <b>demanda das franquias</b> — Fernanda Mariano.</span></li>
+            <li><span class="b"></span><span>Construir <b>narrativa e playbook</b> do anúncio no Universo.</span></li>
+          </ul>
+        </div>
+      </div>
+      <div class="banner reveal" data-d="5">
+        <span class="bi">🚀</span>
+        <p><b>Proposta em uma linha:</b> abrir o LYNN às franquias já no Universo, com escopo controlado e narrativa transparente —
+        e evoluir em fases até o modelo pleno de plataforma no H1/2027.</p>
+      </div>
+    </div>
+  </section>
+
+</div>
+
+<!-- ===== Navegação ===== -->
+<nav id="nav">
+  <div class="nav-btns">
+    <button class="nav-btn" id="btn-prev" title="Anterior (←)">‹</button>
+    <button class="nav-btn" id="btn-next" title="Próximo (→)">›</button>
+  </div>
+  <div id="dots"></div>
+  <div style="display:flex;align-items:center;gap:16px">
+    <button class="btn ghost sm" id="btn-all">💬 Todos os comentários</button>
+    <span id="counter">1 / 9</span>
+  </div>
+</nav>
+<div class="keys-hint">Navegue com <kbd>←</kbd> <kbd>→</kbd> · <kbd>C</kbd> comentários · <kbd>G</kbd> pedido do Gustavo</div>
+
+<!-- ===== FAB colaboração ===== -->
+<button id="fab" title="Comentários deste slide (C)">💬 Comentar <span class="fcnt" id="fab-cnt" style="display:none">0</span></button>
+
+<!-- ===== Painel de comentários ===== -->
+<aside id="cpanel">
+  <header>
+    <div class="row">
+      <h3>Comentários do slide</h3>
+      <button class="xbtn" id="cpanel-close">✕</button>
+    </div>
+    <div class="sl" id="cpanel-slide">—</div>
+  </header>
+  <div id="clist"></div>
+  <form id="cform">
+    <div class="frow">
+      <select id="f-cat">
+        <option value="comentario">💬 Comentário</option>
+        <option value="pergunta">❓ Pergunta</option>
+        <option value="ajuste">✏️ Ajuste</option>
+        <option value="gustavo">⭐ Pedido do Gustavo</option>
+      </select>
+    </div>
+    <textarea id="f-text" placeholder="Escreva seu comentário, pergunta ou sugestão de ajuste…"></textarea>
+    <div class="frow" style="justify-content:flex-end">
+      <button type="submit" class="btn">Enviar</button>
+    </div>
+  </form>
+</aside>
+
+<!-- ===== Modal nome ===== -->
+<div class="overlay" id="ov-name">
+  <div class="modal">
+    <h3>Como podemos te identificar?</h3>
+    <p class="hint">Seu nome aparecerá junto aos comentários. Fica salvo neste navegador.</p>
+    <input type="text" id="name-input" placeholder="Ex.: Eduardo Teixeira" maxlength="60">
+    <div style="display:flex;justify-content:flex-end;margin-top:14px">
+      <button class="btn" id="name-ok">Continuar</button>
+    </div>
+  </div>
+</div>
+
+<!-- ===== Modal captura rápida (Gustavo) ===== -->
+<div class="overlay" id="ov-quick">
+  <div class="modal">
+    <div class="gq-badge">⭐ Pedido do Gustavo · captura rápida</div>
+    <h3 id="quick-slide-title">—</h3>
+    <p class="hint">Registre o pedido/ajuste solicitado durante a apresentação. Vai direto para a lista de follow-up.</p>
+    <textarea id="quick-text" placeholder="O que o Gustavo pediu?"></textarea>
+    <div style="display:flex;justify-content:flex-end;gap:10px;margin-top:14px">
+      <button class="btn ghost" id="quick-cancel">Cancelar</button>
+      <button class="btn" id="quick-ok">Registrar (⏎)</button>
+    </div>
+  </div>
+</div>
+
+<!-- ===== Modal consolidado ===== -->
+<div class="overlay" id="ov-all">
+  <div class="modal wide">
+    <div style="display:flex;align-items:center;justify-content:space-between">
+      <h3>Todos os comentários</h3>
+      <button class="xbtn" id="all-close">✕</button>
+    </div>
+    <div class="filters" id="all-filters">
+      <button class="chip on" data-f="all">Todos</button>
+      <button class="chip" data-f="comentario">💬 Comentários</button>
+      <button class="chip" data-f="pergunta">❓ Perguntas</button>
+      <button class="chip" data-f="ajuste">✏️ Ajustes</button>
+      <button class="chip" data-f="gustavo">⭐ Pedidos do Gustavo</button>
+      <button class="chip" data-f="aberto">Abertos</button>
+      <button class="chip" data-f="resolvido">Resolvidos</button>
+    </div>
+    <div id="all-list"></div>
+    <div style="display:flex;justify-content:flex-end;gap:10px;margin-top:16px" id="all-actions">
+      <button class="btn ghost sm" id="btn-export-md">⬇ Exportar Markdown</button>
+    </div>
+  </div>
+</div>
+
+<div class="toast" id="toast"></div>
+
+<script>
+/* ================= CONFIG ================= */
+const API_BASE = ''; // mesmo host (servido pelo server.js no Replit)
+const POLL_MS = 5000;
+
+/* ================= DECK ================= */
+const slides = [...document.querySelectorAll('.slide')];
+const slideTitles = slides.map(s => s.dataset.title);
+let cur = 0;
+
+const dotsEl = document.getElementById('dots');
+slides.forEach((s, i) => {
+  const w = document.createElement('span');
+  w.className = 'dot-w';
+  w.title = slideTitles[i];
+  w.innerHTML = '<span class="d"></span>';
+  w.addEventListener('click', () => go(i));
+  dotsEl.appendChild(w);
+});
+
+function go(i){
+  if(i < 0 || i >= slides.length) return;
+  slides[cur].classList.remove('active');
+  slides[cur].classList.toggle('prev', i > cur);
+  cur = i;
+  slides.forEach((s, k) => { s.classList.toggle('prev', k < cur); });
+  slides[cur].classList.add('active');
+  document.getElementById('counter').textContent = (cur+1) + ' / ' + slides.length;
+  [...dotsEl.children].forEach((d,k)=>d.classList.toggle('on', k===cur));
+  renderPanel(); renderFab();
+}
+document.getElementById('btn-prev').onclick = () => go(cur-1);
+document.getElementById('btn-next').onclick = () => go(cur+1);
+
+document.addEventListener('keydown', e => {
+  const typing = ['TEXTAREA','INPUT','SELECT'].includes(document.activeElement.tagName);
+  if(e.key === 'Escape'){ closeAllOverlays(); return; }
+  if(typing) return;
+  if(e.key === 'ArrowRight' || e.key === ' ' || e.key === 'PageDown') { e.preventDefault(); go(cur+1); }
+  else if(e.key === 'ArrowLeft' || e.key === 'PageUp') { e.preventDefault(); go(cur-1); }
+  else if(e.key === 'Home') go(0);
+  else if(e.key === 'End') go(slides.length-1);
+  else if(e.key.toLowerCase() === 'c') togglePanel();
+  else if(e.key.toLowerCase() === 'g') openQuick();
+});
+
+/* ================= COLLAB STATE ================= */
+let comments = [];      // {id, created_at, slide_id, author, category, content, status, parent_id}
+let mode = 'connecting'; // remote | local
+let replyTo = null;
+let allFilter = 'all';
+
+const LS_KEY = 'mf_comments_v1';
+const LS_NAME = 'mf_author';
+
+function uuid(){ return (crypto.randomUUID) ? crypto.randomUUID() : 'id-'+Date.now()+'-'+Math.random().toString(16).slice(2); }
+function toast(msg){
+  const t = document.getElementById('toast');
+  t.textContent = msg; t.classList.add('show');
+  clearTimeout(t._h); t._h = setTimeout(()=>t.classList.remove('show'), 2600);
+}
+function setMode(m){
+  mode = m;
+  const pill = document.getElementById('mode-pill');
+  pill.classList.remove('online','local');
+  if(m === 'remote'){ pill.classList.add('online'); document.getElementById('mode-txt').textContent = 'Colaboração online'; }
+  else { pill.classList.add('local'); document.getElementById('mode-txt').textContent = 'Modo local (sem sincronização)'; }
+  renderLocalActions();
+}
+
+/* ---- API layer with local fallback ---- */
+async function api(path, opts){
+  const r = await fetch(API_BASE + path, Object.assign({headers:{'Content-Type':'application/json'}}, opts));
+  if(!r.ok) throw new Error('HTTP '+r.status);
+  return r.status === 204 ? null : r.json();
+}
+function loadLocal(){ try{ comments = JSON.parse(localStorage.getItem(LS_KEY)) || []; }catch(e){ comments = []; } }
+function saveLocal(){ localStorage.setItem(LS_KEY, JSON.stringify(comments)); }
+
+async function fetchComments(){
+  if(mode === 'local'){ loadLocal(); renderAllViews(); return; }
+  try{
+    comments = await api('/api/comments');
+    renderAllViews();
+  }catch(e){
+    if(mode !== 'local'){ setMode('local'); loadLocal(); renderAllViews(); }
+  }
+}
+async function addComment(data){
+  const c = Object.assign({
+    id: uuid(), created_at: new Date().toISOString(),
+    status: 'aberto', parent_id: null
+  }, data);
+  if(mode === 'remote'){
+    try{
+      const saved = await api('/api/comments', {method:'POST', body: JSON.stringify(c)});
+      comments.push(saved || c); renderAllViews(); return;
+    }catch(e){ setMode('local'); }
+  }
+  comments.push(c); saveLocal(); renderAllViews();
+}
+async function setStatus(id, status){
+  const c = comments.find(x => x.id === id); if(!c) return;
+  c.status = status;
+  if(mode === 'remote'){
+    try{ await api('/api/comments/'+id, {method:'PATCH', body: JSON.stringify({status})}); }
+    catch(e){ setMode('local'); saveLocal(); }
+  } else saveLocal();
+  renderAllViews();
+}
+
+async function boot(){
+  try{
+    const h = await api('/api/health');
+    if(h && h.db){ setMode('remote'); }
+    else { setMode('local'); loadLocal(); }
+  }catch(e){ setMode('local'); loadLocal(); }
+  await fetchComments();
+  setInterval(()=>{ if(mode === 'remote') fetchComments(); }, POLL_MS);
+}
+
+/* ---- identity ---- */
+function getName(){ return localStorage.getItem(LS_NAME) || ''; }
+function askName(cb){
+  if(getName()) return cb();
+  const ov = document.getElementById('ov-name');
+  ov.classList.add('open');
+  const input = document.getElementById('name-input');
+  input.value = ''; setTimeout(()=>input.focus(), 50);
+  const done = () => {
+    const v = input.value.trim();
+    if(!v) { input.focus(); return; }
+    localStorage.setItem(LS_NAME, v);
+    ov.classList.remove('open');
+    cb();
+  };
+  document.getElementById('name-ok').onclick = done;
+  input.onkeydown = e => { if(e.key === 'Enter') done(); };
+}
+
+/* ================= RENDER ================= */
+const CAT_LABEL = {comentario:'Comentário', pergunta:'Pergunta', ajuste:'Ajuste', gustavo:'Pedido do Gustavo'};
+
+function slideId(i){ return 'slide-' + (i+1); }
+function slideIdx(sid){ return parseInt(String(sid).replace('slide-',''),10) - 1; }
+function fmtDate(iso){
+  try{ return new Date(iso).toLocaleString('pt-BR',{day:'2-digit',month:'2-digit',hour:'2-digit',minute:'2-digit'}); }
+  catch(e){ return ''; }
+}
+function esc(s){ const d = document.createElement('div'); d.textContent = s; return d.innerHTML; }
+
+function countFor(i){
+  return comments.filter(c => c.slide_id === slideId(i) && !c.parent_id && c.status !== 'resolvido').length;
+}
+
+function renderDots(){
+  [...dotsEl.children].forEach((w, i) => {
+    let cnt = w.querySelector('.cnt');
+    const n = countFor(i);
+    if(n > 0){
+      if(!cnt){ cnt = document.createElement('span'); cnt.className = 'cnt'; w.appendChild(cnt); }
+      cnt.textContent = n;
+    } else if(cnt) cnt.remove();
+  });
+}
+function renderFab(){
+  const n = countFor(cur);
+  const el = document.getElementById('fab-cnt');
+  el.style.display = n > 0 ? 'flex' : 'none';
+  el.textContent = n;
+}
+
+function commentHtml(c, compact){
+  const replies = comments.filter(r => r.parent_id === c.id)
+    .sort((a,b)=>a.created_at.localeCompare(b.created_at));
+  return `<div class="cmt ${c.status==='resolvido'?'resolved':''}" data-id="${c.id}">
+    <div class="top">
+      ${compact ? `<span class="slide-tag">${esc(slideTitles[slideIdx(c.slide_id)]||c.slide_id)}</span>` : ''}
+      <span class="who">${esc(c.author)}</span>
+      <span class="cat ${c.category}">${CAT_LABEL[c.category]||c.category}</span>
+      ${c.status==='resolvido' ? '<span class="cat resolvido">Resolvido</span>' : ''}
+      <span class="when">${fmtDate(c.created_at)}</span>
+    </div>
+    <div class="body">${esc(c.content)}</div>
+    <div class="acts">
+      ${!compact ? `<button data-act="reply">↩ Responder</button>` : ''}
+      <button data-act="toggle">${c.status==='resolvido' ? 'Reabrir' : '✓ Resolver'}</button>
+      ${compact ? `<button data-act="goto">→ Ir ao slide</button>` : ''}
+    </div>
+    ${replies.length ? `<div class="replies">${replies.map(r=>`
+      <div class="cmt" style="padding:10px 12px">
+        <div class="top"><span class="who">${esc(r.author)}</span><span class="when">${fmtDate(r.created_at)}</span></div>
+        <div class="body">${esc(r.content)}</div>
+      </div>`).join('')}</div>` : ''}
+  </div>`;
+}
+
+function renderPanel(){
+  document.getElementById('cpanel-slide').textContent =
+    'Slide ' + (cur+1) + ' · ' + slideTitles[cur];
+  const list = document.getElementById('clist');
+  const items = comments
+    .filter(c => c.slide_id === slideId(cur) && !c.parent_id)
+    .sort((a,b)=>a.created_at.localeCompare(b.created_at));
+  list.innerHTML = items.length
+    ? items.map(c => commentHtml(c,false)).join('')
+    : '<p style="color:var(--muted);font-size:13px;text-align:center;margin-top:30px">Nenhum comentário neste slide ainda.<br>Seja o primeiro a contribuir. 💬</p>';
+  list.querySelectorAll('[data-act]').forEach(btn=>{
+    btn.onclick = () => {
+      const id = btn.closest('.cmt').dataset.id;
+      const c = comments.find(x=>x.id===id);
+      if(btn.dataset.act === 'toggle') setStatus(id, c.status==='resolvido' ? 'aberto' : 'resolvido');
+      if(btn.dataset.act === 'reply'){
+        replyTo = id;
+        const ta = document.getElementById('f-text');
+        ta.placeholder = 'Respondendo a ' + c.author + '…';
+        ta.focus();
+      }
+    };
+  });
+}
+
+function renderAll(){
+  const list = document.getElementById('all-list');
+  let items = comments.filter(c => !c.parent_id);
+  if(['comentario','pergunta','ajuste','gustavo'].includes(allFilter)) items = items.filter(c=>c.category===allFilter);
+  if(allFilter === 'aberto') items = items.filter(c=>c.status!=='resolvido');
+  if(allFilter === 'resolvido') items = items.filter(c=>c.status==='resolvido');
+  items.sort((a,b)=> (a.slide_id.localeCompare(b.slide_id,undefined,{numeric:true})) || a.created_at.localeCompare(b.created_at));
+  list.innerHTML = items.length
+    ? items.map(c => commentHtml(c,true)).join('')
+    : '<p style="color:var(--muted);font-size:13px;text-align:center;margin:26px 0">Nada por aqui com esse filtro.</p>';
+  list.querySelectorAll('[data-act]').forEach(btn=>{
+    btn.onclick = () => {
+      const id = btn.closest('.cmt').dataset.id;
+      const c = comments.find(x=>x.id===id);
+      if(btn.dataset.act === 'toggle') setStatus(id, c.status==='resolvido' ? 'aberto' : 'resolvido');
+      if(btn.dataset.act === 'goto'){
+        document.getElementById('ov-all').classList.remove('open');
+        go(slideIdx(c.slide_id)); openPanel();
+      }
+    };
+  });
+}
+
+function renderAllViews(){ renderDots(); renderFab(); renderPanel(); if(document.getElementById('ov-all').classList.contains('open')) renderAll(); }
+
+/* ================= PANEL / FORMS ================= */
+const cpanel = document.getElementById('cpanel');
+function openPanel(){ cpanel.classList.add('open'); renderPanel(); }
+function closePanel(){ cpanel.classList.remove('open'); replyTo=null; document.getElementById('f-text').placeholder='Escreva seu comentário, pergunta ou sugestão de ajuste…'; }
+function togglePanel(){ cpanel.classList.contains('open') ? closePanel() : openPanel(); }
+document.getElementById('fab').onclick = togglePanel;
+document.getElementById('cpanel-close').onclick = closePanel;
+
+document.getElementById('cform').onsubmit = e => {
+  e.preventDefault();
+  const text = document.getElementById('f-text').value.trim();
+  if(!text) return;
+  askName(async () => {
+    await addComment({
+      slide_id: replyTo ? comments.find(x=>x.id===replyTo).slide_id : slideId(cur),
+      author: getName(),
+      category: document.getElementById('f-cat').value,
+      content: text,
+      parent_id: replyTo
+    });
+    document.getElementById('f-text').value = '';
+    replyTo = null;
+    document.getElementById('f-text').placeholder='Escreva seu comentário, pergunta ou sugestão de ajuste…';
+    toast('Comentário registrado ✓');
+  });
+};
+
+/* ---- quick capture (Gustavo) ---- */
+function openQuick(){
+  document.getElementById('quick-slide-title').textContent = 'Slide ' + (cur+1) + ' · ' + slideTitles[cur];
+  document.getElementById('ov-quick').classList.add('open');
+  const ta = document.getElementById('quick-text');
+  ta.value=''; setTimeout(()=>ta.focus(),50);
+}
+document.getElementById('quick-cancel').onclick = () => document.getElementById('ov-quick').classList.remove('open');
+document.getElementById('quick-ok').onclick = submitQuick;
+document.getElementById('quick-text').addEventListener('keydown', e => {
+  if(e.key === 'Enter' && !e.shiftKey){ e.preventDefault(); submitQuick(); }
+});
+function submitQuick(){
+  const text = document.getElementById('quick-text').value.trim();
+  if(!text) return;
+  askName(async () => {
+    await addComment({ slide_id: slideId(cur), author: getName(), category:'gustavo', content: text, parent_id: null });
+    document.getElementById('ov-quick').classList.remove('open');
+    toast('⭐ Pedido do Gustavo registrado');
+  });
+}
+
+/* ---- consolidated view ---- */
+document.getElementById('btn-all').onclick = () => { document.getElementById('ov-all').classList.add('open'); renderAll(); };
+document.getElementById('all-close').onclick = () => document.getElementById('ov-all').classList.remove('open');
+document.getElementById('all-filters').querySelectorAll('.chip').forEach(ch => {
+  ch.onclick = () => {
+    document.getElementById('all-filters').querySelectorAll('.chip').forEach(c=>c.classList.remove('on'));
+    ch.classList.add('on'); allFilter = ch.dataset.f; renderAll();
+  };
+});
+
+function closeAllOverlays(){
+  document.querySelectorAll('.overlay.open').forEach(o=>o.classList.remove('open'));
+  closePanel();
+}
+document.querySelectorAll('.overlay').forEach(o => {
+  o.addEventListener('click', e => { if(e.target === o) o.classList.remove('open'); });
+});
+
+/* ---- export markdown ---- */
+document.getElementById('btn-export-md').onclick = () => {
+  let md = '# Modelo de Franquias · Foundation LYNN — Comentários\n\n';
+  md += `_Exportado em ${new Date().toLocaleString('pt-BR')}_\n\n`;
+  slides.forEach((s, i) => {
+    const items = comments.filter(c => c.slide_id === slideId(i) && !c.parent_id)
+      .sort((a,b)=>a.created_at.localeCompare(b.created_at));
+    if(!items.length) return;
+    md += `## Slide ${i+1} · ${slideTitles[i]}\n\n`;
+    items.forEach(c => {
+      md += `- **[${CAT_LABEL[c.category]||c.category}]** ${c.content}\n  — _${c.author}, ${fmtDate(c.created_at)}${c.status==='resolvido' ? ' · ✅ resolvido' : ''}_\n`;
+      comments.filter(r=>r.parent_id===c.id).forEach(r => {
+        md += `  - ↩ ${r.content} — _${r.author}_\n`;
+      });
+    });
+    md += '\n';
+  });
+  download('comentarios-modelo-franquias.md', md);
+  toast('Markdown exportado ⬇');
+};
+
+/* ---- local mode: export/import JSON ---- */
+function renderLocalActions(){
+  const box = document.getElementById('all-actions');
+  box.querySelectorAll('.local-only').forEach(b=>b.remove());
+  if(mode !== 'local') return;
+  const exp = document.createElement('button');
+  exp.className = 'btn ghost sm local-only'; exp.textContent = '⬇ Exportar JSON';
+  exp.onclick = () => { download('comentarios.json', JSON.stringify(comments,null,2)); toast('JSON exportado ⬇'); };
+  const imp = document.createElement('button');
+  imp.className = 'btn ghost sm local-only'; imp.textContent = '⬆ Importar JSON';
+  imp.onclick = () => {
+    const inp = document.createElement('input'); inp.type='file'; inp.accept='.json';
+    inp.onchange = () => {
+      const f = inp.files[0]; if(!f) return;
+      const rd = new FileReader();
+      rd.onload = () => {
+        try{
+          const arr = JSON.parse(rd.result);
+          const ids = new Set(comments.map(c=>c.id));
+          arr.forEach(c => { if(!ids.has(c.id)) comments.push(c); });
+          saveLocal(); renderAllViews(); toast('Comentários importados ✓');
+        }catch(e){ toast('Arquivo inválido'); }
+      };
+      rd.readAsText(f);
+    };
+    inp.click();
+  };
+  box.prepend(imp); box.prepend(exp);
+}
+function download(name, content){
+  const a = document.createElement('a');
+  a.href = URL.createObjectURL(new Blob([content], {type:'text/plain;charset=utf-8'}));
+  a.download = name; a.click();
+  setTimeout(()=>URL.revokeObjectURL(a.href), 2000);
+}
+
+/* ================= INIT ================= */
+slides[0].classList.add('active');
+[...dotsEl.children][0].classList.add('on');
+boot();
+</script>
+</body>
+</html>
