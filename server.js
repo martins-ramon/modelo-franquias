@@ -135,7 +135,7 @@ app.patch('/api/comments/:id', async (req, res) => {
 
 app.use(express.static(path.join(__dirname), { index: 'index.html', extensions: ['html'] }));
 
-const PORT = process.env.PORT || 3000;
+const PORT = process.env.PORT || 5000;
 app.listen(PORT, '0.0.0.0', () => {
   console.log(`[web] apresentação disponível em http://0.0.0.0:${PORT}`);
   bootstrap();

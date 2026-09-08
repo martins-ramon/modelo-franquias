@@ -39,5 +39,5 @@ Se o site for aberto sem servidor/banco (ex.: `index.html` direto no navegador),
 npm install
 DATABASE_URL="postgresql://...pooler.supabase.com:6543/postgres" npm start
 # sem DATABASE_URL o site sobe igualmente, em modo local
-open http://localhost:3000
+open http://localhost:5000
 ```
