@@ -384,8 +384,9 @@
         <div class="card reveal" data-d="3">
           <h3><span class="ic">🔒</span>Propriedade intelectual TOTVS protegida</h3>
           <ul class="clean">
-            <li><span class="b"></span><span>Agentes padrão TOTVS são <b>fechados</b>: manifestos, prompts e documentação interna <b>não serão publicados</b>.</span></li>
+            <li><span class="b"></span><span>Agentes padrão TOTVS são <b>fechados</b>: manifestos e prompts<b>não serão publicados</b>.</span></li>
             <li><span class="b"></span><span>Franquia <b>não customiza</b> agentes padrão nem modifica seus MCPs.</span></li>
+            <li><span class="b"></span><span>Será avaliada a possibilidade de publicar manifestos dos agentes padrão <b>fechados</b>como templates<b></b>.</span></li>
           </ul>
         </div>
         <div class="card reveal" data-d="4">
@@ -435,8 +436,8 @@
           <div class="when">Q1 2027</div>
           <div class="tl-card">
             <h3>Transição TCoin + User Tools</h3>
-            <p>Bilhetagem via <b>wallet TCoin</b> (Billing ativo a partir de jan/27), repasse de custos operante e liberação de
-            <b>tools customizadas</b> (esforço em dimensionamento).</p>
+            <p>Bilhetagem via <b>wallet TCoin</b>, com cobrança de preço de execução (custo + margem) e liberação de
+            <b>tools customizadas</b> (esforço em dimensionamento sendo estimado pelo <b>Framework</b>).</p>
           </div>
         </div>
         <div class="tl-item reveal" data-d="6">
@@ -452,7 +453,7 @@
       <div class="banner reveal" data-d="7">
         <span class="bi">📌</span>
         <p>As janelas de T1 e T2 são <b>propostas de calibragem</b>. Dependem do dimensionamento técnico
-        (user tools, repasse de custos, Billing) que o grupo está fechando.</p>
+        (user tools, mecanismo de métricas decustos, Billing) que o grupo está fechando.</p>
       </div>
     </div>
   </section>
@@ -477,7 +478,9 @@
             <td class="col-hl"><span class="st yes">✓</span></td><td><span class="st yes">✓</span></td><td><span class="st yes">✓</span></td></tr>
           <tr><td>Uso das tools padrão <small>catálogo MCP (~15 tools)</small></td>
             <td class="col-hl"><span class="st yes">✓</span></td><td><span class="st yes">✓</span></td><td><span class="st yes">✓</span></td></tr>
-          <tr><td>Acesso a manifestos/prompts dos agentes padrão <small>proteção de PI — nunca será liberado</small></td>
+          <tr><td>Acesso a manifestos/prompts dos agentes padrão para customização <small>proteção de propriedade intelectual</small></td>
+            <td class="col-hl"><span class="st no">✕</span></td><td><span class="st no">✕</span></td><td><span class="st no">✕</span></td></tr>
+          <tr><td>Acesso a manifestos/prompts dos agentes padrão como templates <small>mecanismo que pertmite a customização de agentes sem a alteração do padrão.</small></td>
             <td class="col-hl"><span class="st no">✕</span></td><td><span class="st no">✕</span></td><td><span class="st no">✕</span></td></tr>
           <tr><td>Criação de tools customizadas (user tools) <small>esforço "fazer + proteger" em dimensionamento por linha</small></td>
             <td class="col-hl"><span class="st no">✕</span></td><td><span class="st def">⚠</span></td><td><span class="st yes">✓</span></td></tr>
@@ -489,7 +492,7 @@
             <td class="col-hl"><span class="st yes">✓</span></td><td><span class="st yes">✓</span></td><td><span class="st yes">✓</span></td></tr>
           <tr><td>Wallet TCoin · consumo bilhetado <small>Billing com repasse a partir de jan/27</small></td>
             <td class="col-hl"><span class="st no">✕</span></td><td><span class="st yes">✓</span></td><td><span class="st yes">✓</span></td></tr>
-          <tr><td>Repasse de custos à franquia <small>mecanismo em definição · tenant é do cliente</small></td>
+          <tr><td>Cobrança do preço de execução à franquia <small>mecanismo em definição · tenant é do cliente</small></td>
             <td class="col-hl"><span class="st part">◐</span></td><td><span class="st yes">✓</span></td><td><span class="st yes">✓</span></td></tr>
           <tr><td>Repasse de receita 70/30 <small>modelo plataforma / App Store</small></td>
             <td class="col-hl"><span class="st no">✕</span></td><td><span class="st no">✕</span></td><td><span class="st yes">✓</span></td></tr>
@@ -525,13 +528,13 @@
             <li><span class="ok">✓</span><span>Ativação por cliente específico (<b>TCode</b>) na Agent Store</span></li>
             <li><span class="ok">✓</span><span><b>Patch 25.10+</b> aplicado sob demanda no cliente da franquia<small>independe da atualização em bloco e do cronograma dos pilotos</small></span></li>
             <li><span class="ok">✓</span><span>Monetização por <b>serviço</b> (one-shot, modelo atual)</span></li>
+            <li><span class="ok">✓</span><span><b>Limite de consumo</b> para evitar custos excessivos em especial com tokens.</span></li>
           </ul>
         </div>
         <div class="panel-no reveal" data-d="5">
           <h3>✕ Ainda não disponível</h3>
           <ul class="clean">
-            <li><span class="no">✕</span><span><b>Bilhetagem TCoin</b><small>Billing com repasse só a partir de jan/27 — nos pilotos, o custo é absorvido pela TOTVS</small></span></li>
-            <li><span class="no">✕</span><span><b>Mecanismo de repasse de custos</b> à franquia<small>plataforma de repasse em construção; tenant pertence ao cliente</small></span></li>
+            <li><span class="no">✕</span><span><b>Bilhetagem TCoin</b><small>Billing com repasse só a partir de jan/27. Nos pilotos, o <b>custo é absorvido pela TOTVS</b></small></span></li>
             <li><span class="no">✕</span><span><b>Tools customizadas</b> (user tools)<small>esforço de fazer + proteger em dimensionamento nas 3 linhas</small></span></li>
             <li><span class="no">✕</span><span>Agentes com demanda à <b>plataforma de dados</b></span></li>
             <li><span class="no">✕</span><span><b>Comissionamento / repasse de receita</b> (70/30)</span></li>
@@ -541,7 +544,8 @@
       <div class="banner reveal" data-d="6">
         <span class="bi">📣</span>
         <p><b>Comunicação no Universo precisa ser explícita sobre esses limites.</b>
-        Estar em paralelo aos pilotos não significa ter o modelo completo — o playbook evolui a cada fase.</p>
+        Estar em paralelo aos pilotos não significa ter o modelo completo, pois o playbook evolui a cada fase.<br>
+        <b>A relação financeira com a franquia será sempre baseada em preço, nunca em custo. </b>Conforme definição do GB, nos pilotos podemos considerar o custo sendo absorvido pela TOTVS, mas assim que tivermos o mecanismo de bilhetagem, devemos considerar cobrar da franquia com a margem da TOTVS.</p>
       </div>
     </div>
   </section>
@@ -551,21 +555,20 @@
     <div class="slide-inner">
       <div class="kicker reveal" data-d="1">Direção de negócio</div>
       <h2 class="reveal" data-d="2">Monetização: evolução em 3 estágios</h2>
-      <p class="subtitle reveal" data-d="3">Princípio permanente: <b style="color:var(--text)">todo custo de execução é repassado à franquia</b> —
-      o risco fica isolado da TOTVS. A receita evolui do serviço direto ao modelo de plataforma.</p>
+      <p class="subtitle reveal" data-d="3">A receita evolui do serviço direto ao modelo de plataforma.</p>
       <div class="flow reveal" data-d="4">
         <div class="stage">
           <div class="tag">T0 · Serviço direto</div>
           <h3>Franquia cobra o cliente</h3>
           <p>Serviço one-shot de construção do agente, na relação comercial atual (igual customização de software).
-          TOTVS repassa custos de infra/tokens à franquia assim que o mecanismo estiver operante.</p>
+          TOTVS absorve custo de infra/tokens durante o piloto.</p>
         </div>
         <div class="arrow">➜</div>
         <div class="stage">
           <div class="tag">T1 · Transição TCoin</div>
           <h3>Consumo bilhetado</h3>
           <p>Cliente compra pacote de TCoins; execução dos agentes consome a wallet via Billing.
-          Franquia precifica a unidade de consumo das suas tools e responde pela própria margem.</p>
+          Franquia precifica a unidade de consumo das suas tools contemplando margem TOTVS <b>(em definição)</b>.</p>
         </div>
         <div class="arrow">➜</div>
         <div class="stage">
@@ -577,13 +580,13 @@
       <div class="cards c2" style="margin-top:20px">
         <div class="card reveal" data-d="5">
           <h3><span class="ic">🧾</span>Fluxo financeiro</h3>
-          <p>TOTVS sempre fatura o cliente final (venda de TCoins). O acerto com a franquia (custos e, depois, receita)
+          <p>TOTVS sempre fatura o cliente final (venda de TCoins). O acerto com a franquia (sempre preço/receita)
           ocorre em ciclo periódico, com tratamento contábil adequado entre empresas, evitando bitributação.</p>
         </div>
         <div class="card reveal" data-d="6">
-          <h3><span class="ic">⚖️</span>Risco na ponta certa</h3>
-          <p>Se a franquia precificar mal a unidade de consumo ou o agente consumir tokens em excesso,
-          o custo é dela. Mesma mecânica de risco dos times de produto TOTVS.</p>
+          <h3><span class="ic">⚖️</span>Equilíbrio de riscos</h3>
+          <p>A TOTVS deve utilizar o limite de consumo de tokens (LYNN Proxy) e demais mecanismos que mitiguem o risco de escalada de custos.
+            <b>Precisamos exercitar melhor os efeitos de uma erro de precificação do agente por parte da franquia.</b></p>
         </div>
       </div>
     </div>
@@ -612,8 +615,8 @@
         </div>
         <div class="card reveal" data-d="5">
           <span class="badge warn">Mecanismo</span>
-          <h3 style="margin-top:10px">Repasse de custos à franquia</h3>
-          <p>O tenant é do cliente — é preciso vincular agente→franquia para transferir o custo
+          <h3 style="margin-top:10px">Cobrança junto à franquia</h3>
+          <p>O tenant é do cliente. É preciso vincular agente→franquia para realizarmos a respectiva cobrança (custo + margem) da franquia
           (nota fiscal / tratamento contábil). Plataforma central de repasse em construção.</p>
           <span class="owner">André Pasold · c/ Fernando Sorocaba</span>
         </div>
@@ -625,17 +628,10 @@
           <span class="owner">Robson Poffo · Eduardo Teixeira</span>
         </div>
         <div class="card reveal" data-d="6">
-          <span class="badge">Mercado</span>
-          <h3 style="margin-top:10px">Temperatura da demanda</h3>
-          <p>Mapear se há demanda reprimida (franquias já com 10–15 agentes em campo) — isso pode antecipar
-          prioridades de T1/T2 e o investimento em publicação na Store.</p>
-          <span class="owner">Alinhamento c/ Fernanda Mariano</span>
-        </div>
-        <div class="card reveal" data-d="6">
           <span class="badge">Enablement</span>
           <h3 style="margin-top:10px">Playbook das franquias</h3>
           <p>Manual de início-meio-fim: como construir, precificar, entregar e suportar agentes.
-          Sem o caminho claro, a liberação gera ruído — educação formal antes do lançamento amplo.</p>
+          Sem o caminho claro, a liberação gera ruído. Educação formal antes do lançamento amplo.</p>
           <span class="owner">Grupo Starship</span>
         </div>
       </div>
@@ -651,9 +647,9 @@
         <div class="card reveal" data-d="3">
           <h3><span class="ic">✅</span>Decisões solicitadas ao Gustavo</h3>
           <ul class="clean">
-            <li><span class="b"></span><span>Validar os <b>limites do modelo</b>: agentes padrão fechados; franquia constrói o novo com tools padrão.</span></li>
-            <li><span class="b"></span><span>Confirmar a liberação <b>em paralelo aos pilotos</b> (T0 no Universo), com as ressalvas comunicadas.</span></li>
-            <li><span class="b"></span><span>Definir se o repasse de custos é <b>1:1 ou com margem</b>.</span></li>
+            <li><span class="b"></span><span>Validar os <b>limites do modelo</b>: agentes padrão fechados; franquia constrói o novo com tools padrão.<b>GB solicitou algum mecanismo para permitir customização de alguma forma. (manifestos como template?)</b></span></li>
+            <li><span class="b"></span><span>Confirmar a liberação <b>em paralelo aos pilotos</b> (T0 no Universo), com as ressalvas comunicadas.<b>GB confirmou urgencia de liberação paralela aos pilotos, mesmo que custo inicial seja absorvido pela TOTVS, com os devidos cuidados de mitigaçãona escala dos mesmos.</b></span></li>
+            <li><span class="b"></span><span>Definir se o repasse de custos é <b>1:1 ou com margem</b>.<b>GB orientou sempre tratarmos preço com a franquia, nunca custo.</b></span></li>
             <li><span class="b"></span><span>Calibrar as <b>janelas de T1 (Q1/27) e T2 (H1/27)</b> frente à pressão do ecossistema.</span></li>
           </ul>
         </div>
@@ -663,15 +659,14 @@
             <li><span class="b"></span><span>Dimensionar <b>user tools</b> nas 3 linhas (fazer + proteger) — Malafaia.</span></li>
             <li><span class="b"></span><span>Validar <b>granularidade de bilhetagem</b> e repasse com Billing — Sobieski / Felipe Xavier / Sorocaba.</span></li>
             <li><span class="b"></span><span>Pauta técnica de <b>plataforma de dados</b> (tenant irmã, opt-out, contrato) — Poffo / Teixeira.</span></li>
-            <li><span class="b"></span><span>Sondar <b>demanda das franquias</b> — Fernanda Mariano.</span></li>
             <li><span class="b"></span><span>Construir <b>narrativa e playbook</b> do anúncio no Universo.</span></li>
           </ul>
         </div>
       </div>
       <div class="banner reveal" data-d="5">
         <span class="bi">🚀</span>
-        <p><b>Proposta em uma linha:</b> abrir o LYNN às franquias já no Universo, com escopo controlado e narrativa transparente —
-        e evoluir em fases até o modelo pleno de plataforma no H1/2027.</p>
+        <p><b>Proposta em uma linha:</b> abrir o LYNN às franquias já no Universo, com escopo controlado e narrativa transparente.
+        Evoluir em fases até o modelo pleno de plataforma no H1/2027.</p>
       </div>
     </div>
   </section>
