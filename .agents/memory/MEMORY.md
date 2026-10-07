@@ -1,0 +1,1 @@
+- [Publishing runtime compatibility](publishing-runtime.md) — production injects Node options that legacy Node runtimes may reject before app startup.
