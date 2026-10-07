@@ -46,7 +46,7 @@
   .slide{
     position:absolute;inset:0;
     display:flex;align-items:center;justify-content:center;
-    padding:56px 72px 96px;
+    padding:56px 72px 128px;
     opacity:0;visibility:hidden;
     transform:translateX(60px);
     transition:opacity .55s ease, transform .55s cubic-bezier(.22,.8,.3,1), visibility .55s;
@@ -78,6 +78,9 @@
   h1{font-size:52px;line-height:1.08;font-weight:800;letter-spacing:-.02em}
   h2{font-size:36px;line-height:1.15;font-weight:800;letter-spacing:-.02em;margin-bottom:10px}
   .subtitle{font-size:17px;color:var(--muted);line-height:1.6;max-width:760px}
+  .terminology-note{font-size:14px;line-height:1.6;color:var(--muted);max-width:900px;
+    margin-top:16px;padding-left:14px;border-left:2px solid var(--accent)}
+  .terminology-note b{color:var(--text)}
   .grad{background:linear-gradient(92deg,var(--accent2),var(--accent) 60%,#5bd0ff);-webkit-background-clip:text;background-clip:text;color:transparent}
 
   .cards{display:grid;gap:16px;margin-top:28px}
@@ -313,7 +316,7 @@
   .keys-hint kbd{border:1px solid var(--line-soft);border-radius:4px;padding:1px 5px;font-family:var(--font);font-size:10px}
 
   @media (max-width:900px){
-    .slide{padding:58px 22px 140px}
+    .slide{padding:58px 22px 150px}
     h1{font-size:34px}.cover h1{font-size:36px}h2{font-size:26px}
     .cards.c2,.cards.c3,.split,.pend{grid-template-columns:1fr}
     .timeline{grid-template-columns:1fr}
@@ -352,7 +355,7 @@
       <div class="kicker reveal" data-d="2">Visão Executiva</div>
       <h1 class="reveal" data-d="3">Modelo de Franquias<br><span class="grad">Acesso ao Foundation LYNN</span></h1>
       <p class="subtitle reveal" data-d="4" style="margin-top:22px">
-        Como as franquias terão acesso à construção de agentes no LYNN ao longo do tempo,
+        Como as franquias terão acesso à construção de agentes no LYNN Studio ao longo do tempo,
         a partir do <b style="color:var(--text)">Universo TOTVS · Outubro/2026</b>. Em fases, com clareza
         sobre o que estará disponível em cada momento.
       </p>
@@ -364,7 +367,7 @@
     <div class="slide-inner">
       <div class="kicker reveal" data-d="1">Por que agora</div>
       <h2 class="reveal" data-d="2">Contexto &amp; Racional</h2>
-      <p class="subtitle reveal" data-d="3">Compromisso assumido com os franqueados na Confrat: liberar a construção de agentes no LYNN.
+      <p class="subtitle reveal" data-d="3">Compromisso assumido com os franqueados na Confrat: liberar a construção de agentes no LYNN Studio.
       O endereçamento acontece no Universo TOTVS, em outubro/2026.</p>
       <div class="cards c3">
         <div class="card reveal" data-d="4">
@@ -386,7 +389,7 @@
       </div>
       <div class="banner reveal" data-d="7">
         <span class="bi">🎯</span>
-        <p><b>Mensagem central:</b> as franquias começam a operar no LYNN já a partir do Universo,
+        <p><b>Mensagem central:</b> as franquias começam a construir agentes no LYNN Studio já a partir do Universo,
         <b>em paralelo aos pilotos</b>, com foco em capacitação e experimentação, escopo claro e limites comunicados de forma explícita.</p>
       </div>
     </div>
@@ -397,19 +400,21 @@
     <div class="slide-inner">
       <div class="kicker reveal" data-d="1">O que já está deliberado</div>
       <h2 class="reveal" data-d="2">Princípios do Modelo</h2>
+      <p class="terminology-note reveal" data-d="2"><b>Agentes especialistas/padrão:</b> por enquanto, “especialistas” e “padrão”
+      são nomes equivalentes para a mesma categoria de agentes TOTVS. A nomenclatura está em conciliação.</p>
       <div class="cards c2" style="margin-top:24px">
         <div class="card reveal" data-d="3">
           <h3><span class="ic">🔒</span>Propriedade intelectual TOTVS protegida</h3>
           <ul class="clean">
-            <li><span class="b"></span><span>Agentes padrão TOTVS são <b>fechados</b>: manifestos e prompts <b>não serão publicados</b>.</span></li>
-            <li><span class="b"></span><span>A franquia não altera o manifesto nem o raciocínio dos agentes padrão.</span></li>
+            <li><span class="b"></span><span>Agentes especialistas/padrão TOTVS são <b>fechados</b>: manifestos e prompts <b>não serão publicados</b>.</span></li>
+            <li><span class="b"></span><span>A franquia não altera o manifesto nem o raciocínio dos agentes especialistas/padrão.</span></li>
             <li><span class="b"></span><span>Extensões nas tools seguem os pontos de entrada do ERP, com cuidado para preservar seu propósito e o comportamento esperado do agente.</span></li>
           </ul>
         </div>
         <div class="card reveal" data-d="4">
           <h3><span class="ic">🧩</span>Franquia constrói o novo</h3>
           <ul class="clean">
-            <li><span class="b"></span><span>Criação de <b>agentes novos no LYNN Builder</b>, sob demanda de clientes.</span></li>
+            <li><span class="b"></span><span>Criação de <b>agentes novos no LYNN Studio</b>, sob demanda de clientes.</span></li>
             <li><span class="b"></span><span>Uso de <b>tools padrão via MCP Server</b>, sem catálogo e sem documentação para terceiros no T0.<small>Inventário e quantidade por produto a levantar; catálogo previsto para Q2/27.</small></span></li>
             <li><span class="b"></span><span><b>User tools em RM, Datasul e Protheus a partir de Q1/27.</b></span></li>
           </ul>
@@ -444,7 +449,7 @@
           <div class="dot">T0</div>
           <div class="when">Universo TOTVS · Out/2026</div>
           <div class="tl-card">
-            <h3>Abertura do LYNN</h3>
+            <h3>Abertura do LYNN Studio</h3>
             <p>Franquias constroem <b>agentes novos</b> com <b>tools padrão</b>, entregam a clientes específicos (TCode)
             e podem cobrar por <b>serviço</b>. Bilhetagem e identificação do consumo já disponíveis; TOTVS absorve os custos dos pilotos.</p>
           </div>
@@ -493,13 +498,13 @@
           </tr>
         </thead>
         <tbody>
-          <tr><td>Construção de agentes no LYNN Builder</td>
+          <tr><td>Construção de agentes no LYNN Studio</td>
             <td class="col-hl"><span class="st yes" role="img" aria-label="Disponível na fase indicada" title="Disponível na fase indicada">✓</span></td><td><span class="st yes" role="img" aria-label="Disponível na fase indicada" title="Disponível na fase indicada">✓</span></td><td><span class="st yes" role="img" aria-label="Disponível na fase indicada" title="Disponível na fase indicada">✓</span></td></tr>
           <tr><td>Uso das tools padrão <small>No T0, sem catálogo e sem documentação para terceiros; inventário por produto a levantar.</small></td>
             <td class="col-hl"><span class="st yes" role="img" aria-label="Disponível na fase indicada" title="Disponível na fase indicada">✓</span></td><td><span class="st yes" role="img" aria-label="Disponível na fase indicada" title="Disponível na fase indicada">✓</span></td><td><span class="st yes" role="img" aria-label="Disponível na fase indicada" title="Disponível na fase indicada">✓</span></td></tr>
           <tr><td>Catálogo e documentação de tools <small>Previsão para Q2/27 · organização com os times de produto.</small></td>
             <td class="col-hl"><span class="st no" role="img" aria-label="Não disponível nesta fase" title="Não disponível nesta fase">✕</span></td><td><span class="st no" role="img" aria-label="Não disponível nesta fase" title="Não disponível nesta fase">✕</span></td><td><span class="st yes" role="img" aria-label="Disponível na fase indicada" title="Disponível na fase indicada">✓</span></td></tr>
-          <tr><td>Acesso a manifestos/prompts dos agentes padrão para customização <small>Proteção de propriedade intelectual.</small></td>
+          <tr><td>Acesso a manifestos/prompts dos agentes especialistas/padrão para customização <small>Proteção de propriedade intelectual.</small></td>
             <td class="col-hl"><span class="st no" role="img" aria-label="Não disponível nesta fase" title="Não disponível nesta fase">✕</span></td><td><span class="st no" role="img" aria-label="Não disponível nesta fase" title="Não disponível nesta fase">✕</span></td><td><span class="st no" role="img" aria-label="Não disponível nesta fase" title="Não disponível nesta fase">✕</span></td></tr>
           <tr><td><b>Criação de tools customizadas (user tools)</b> <small>Liberação por produto abaixo; demais produtos ainda não avaliados.</small></td>
             <td class="col-hl"><span class="st no" role="img" aria-label="Não disponível nesta fase" title="Não disponível nesta fase">✕</span></td><td><span class="st yes" role="img" aria-label="Disponível na fase indicada" title="Disponível na fase indicada">✓</span></td><td><span class="st yes" role="img" aria-label="Disponível na fase indicada" title="Disponível na fase indicada">✓</span></td></tr>
@@ -555,7 +560,7 @@
         <div class="panel-ok reveal" data-d="4">
           <h3>✓ Disponível para as franquias</h3>
           <ul class="clean">
-            <li><span class="ok">✓</span><span>Construção de <b>agentes novos</b> no LYNN Builder</span></li>
+            <li><span class="ok">✓</span><span>Construção de <b>agentes novos</b> no LYNN Studio</span></li>
             <li><span class="ok">✓</span><span><b>Tools padrão</b> via MCP Server<small>sem catálogo e sem documentação para terceiros; exige apoio dos times de produto</small></span></li>
             <li><span class="ok">✓</span><span>Ativação por cliente específico (<b>TCode</b>) na Agent Store</span></li>
             <li><span class="ok">✓</span><span><b>Patch 25.10+</b> aplicado sob demanda no cliente da franquia<small>independe da atualização em bloco e do cronograma dos pilotos</small></span></li>
@@ -697,7 +702,7 @@
           <ul class="clean">
             <li><span class="b"></span><span><b>Abertura no Universo, em paralelo aos pilotos</b>, para as franquias construírem agentes com foco em capacitação e experimentação.</span></li>
             <li><span class="b"></span><span><b>TOTVS absorve os custos dos pilotos</b>, com limites de consumo. A relação financeira com a franquia será baseada em preço.</span></li>
-            <li><span class="b"></span><span><b>Agentes padrão fechados</b>; franquias constroem novos agentes. Extensões nas tools seguem pontos de entrada e boas práticas do ERP.</span></li>
+            <li><span class="b"></span><span><b>Agentes especialistas/padrão fechados</b>; franquias constroem novos agentes no LYNN Studio. Extensões nas tools seguem pontos de entrada e boas práticas do ERP.</span></li>
             <li><span class="b"></span><span><b>Bilhetagem e identificação do consumo em T0</b>, com cadastro de preço pela TOTVS. Entrega cliente a cliente via TCode.</span></li>
             <li><span class="b"></span><span><b>RM, Datasul e Protheus: user tools a partir de Q1/27.</b> Catálogo e documentação de tools previstos para Q2/27.</span></li>
           </ul>
@@ -716,7 +721,7 @@
       </div>
       <div class="banner reveal" data-d="5">
         <span class="bi">🚀</span>
-        <p><b>Direção:</b> abrir o LYNN às franquias no Universo com escopo controlado e evoluir por capacidade.
+        <p><b>Direção:</b> abrir o LYNN Studio às franquias no Universo com escopo controlado e evoluir por capacidade.
         Publicação ampla e repasse de receita <b>seguem sem data definida</b>.</p>
       </div>
     </div>
