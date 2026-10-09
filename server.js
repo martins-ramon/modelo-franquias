@@ -22,6 +22,7 @@ app.use(express.json({ limit: '256kb' }));
 const DATABASE_URL = process.env.DATABASE_URL;
 let pool = null;
 let dbReady = false;
+let dbInitialization = null;
 
 if (DATABASE_URL) {
   const isLocal = /localhost|127\.0\.0\.1/.test(DATABASE_URL);
@@ -65,12 +66,25 @@ async function bootstrap() {
   } catch (err) {
     console.error('[db] falha ao inicializar:', err.message);
     dbReady = false;
-    // tenta novamente em 15s (útil em cold start do pooler)
-    setTimeout(bootstrap, 15000);
+    // A próxima requisição tentará novamente, sem timers em segundo plano.
   }
 }
 
+async function ensureDatabase() {
+  if (!pool || dbReady) return;
+  // Requisições simultâneas no cold start compartilham a inicialização.
+  if (!dbInitialization) {
+    dbInitialization = bootstrap().finally(() => { dbInitialization = null; });
+  }
+  await dbInitialization;
+}
+
 /* ---------- API ---------- */
+
+app.use('/api', (_req, res, next) => {
+  res.set('Cache-Control', 'no-store');
+  ensureDatabase().then(() => next()).catch(next);
+});
 
 app.get('/api/health', (_req, res) => {
   res.json({ ok: true, db: dbReady });
@@ -133,10 +147,18 @@ app.patch('/api/comments/:id', async (req, res) => {
 
 /* ---------- estático ---------- */
 
-app.use(express.static(path.join(__dirname), { index: 'index.html', extensions: ['html'] }));
-
-const PORT = process.env.PORT || 5000;
-app.listen(PORT, '0.0.0.0', () => {
-  console.log(`[web] apresentação disponível em http://0.0.0.0:${PORT}`);
-  bootstrap();
+// Na Vercel, o build publica somente index.html e assets/ em public/ (CDN).
+// Estas rotas mantêm npm start funcionando localmente sem expor o repositório.
+app.get(['/', '/index.html'], (_req, res) => {
+  res.sendFile(path.join(__dirname, 'index.html'));
 });
+app.use('/assets', express.static(path.join(__dirname, 'assets')));
+
+module.exports = app;
+
+if (require.main === module) {
+  const PORT = process.env.PORT || 5000;
+  app.listen(PORT, '0.0.0.0', () => {
+    console.log(`[web] apresentação disponível em http://0.0.0.0:${PORT}`);
+  });
+}
